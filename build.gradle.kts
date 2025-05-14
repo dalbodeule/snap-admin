@@ -53,7 +53,7 @@ dependencies {
 }
 
 group = "space.mori.dalbodeule"
-version = "0.4.1"
+version = env.VERSION.value
 description = "SnapAdmin"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -65,6 +65,7 @@ publishing {
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
+    options.compilerArgs.add("-parameters")
 }
 
 tasks.withType<Javadoc>() {

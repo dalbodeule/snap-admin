@@ -223,6 +223,7 @@ public class SnapAdmin {
 					field.setSchema(schema);
 					schema.addField(field);
 				} catch (UnsupportedFieldTypeException e) {
+					if(klass.getSimpleName().startsWith("$$_hibernate")) continue;
 					logger.warn("The class " + klass.getSimpleName()  + " contains the field `" 
 								+ f.getName() + "` of type `" + f.getType().getSimpleName() + "`, which is not supported");
 					schema.addError(
