@@ -355,8 +355,8 @@ public class SnapAdmin {
 		
 		DisplayFormat displayFormat = f.getAnnotation(DisplayFormat.class);
 		DisableEditField disableEdit = f.getAnnotation(DisableEditField.class);
-		
-		DbField field = new DbField(f.getName(), fieldName, f, fieldType, schema, displayFormat != null ? displayFormat.format() : null, disableEdit != null);
+
+		DbField field = new DbField(f.getName(), fieldName, f, fieldType, schema, displayFormat != null ? displayFormat.format() : null);
 		field.setConnectedType(connectedType);
 		
 		Id[] idAnnotations = f.getAnnotationsByType(Id.class);
@@ -366,6 +366,8 @@ public class SnapAdmin {
 		
 		if (field.isPrimaryKey())
 			field.setNullable(false);
+
+        field.setDisableEditField(disableEdit != null);
 		
 		return field;
 	}

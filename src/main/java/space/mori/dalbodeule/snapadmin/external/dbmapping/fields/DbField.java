@@ -96,14 +96,13 @@ public class DbField {
 	@JsonIgnore
 	private DbObjectSchema schema;
 	
-	public DbField(String javaName, String name, Field field, DbFieldType type, DbObjectSchema schema, String format, boolean isDisable) {
+	public DbField(String javaName, String name, Field field, DbFieldType type, DbObjectSchema schema, String format) {
 		this.javaName = javaName;
 		this.dbName = name;
 		this.schema = schema;
 		this.field = field;
 		this.type = type;
 		this.format = format;
-		this.disableEditField = isDisable;
 	}
 	
 	public String getJavaName() {
