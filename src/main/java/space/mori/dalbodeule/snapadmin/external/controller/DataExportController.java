@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.poi.ss.usermodel.Cell;
@@ -75,6 +76,7 @@ import space.mori.dalbodeule.snapadmin.internal.repository.ConsoleQueryRepositor
 @Controller
 @RequestMapping(value = { "/${snapadmin.baseUrl}/", "/${snapadmin.baseUrl}" })
 @Import(ObjectMapper.class)
+@Hidden
 public class DataExportController {
 	private static final Logger logger = LoggerFactory.getLogger(DataExportFormat.class);
 	private final SnapAdmin snapAdmin;

@@ -123,6 +123,7 @@ public class CustomJpaRepository extends SimpleJpaRepository {
 		for (DbField field : schema.getSortedFields()) {
 			if (field.isPrimaryKey()) continue;
 			if (field.isReadOnly()) continue;
+			if (field.isDisableEditField()) continue;
 			
 			boolean keepValue = params.getOrDefault("__keep_" + field.getName(), "off").equals("on");
 			if (keepValue) continue;

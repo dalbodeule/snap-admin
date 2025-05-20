@@ -21,6 +21,7 @@ package space.mori.dalbodeule.snapadmin.external.controller;
 
 import java.util.Optional;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.apache.tika.Tika;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
@@ -48,6 +49,7 @@ import space.mori.dalbodeule.snapadmin.external.exceptions.SnapAdminException;
  */
 @Controller
 @RequestMapping(value = {"/${snapadmin.baseUrl}/download", "/${snapadmin.baseUrl}/download/"})
+@Hidden
 public class FileDownloadController {
 	@Autowired
 	private SnapAdminRepository repository;

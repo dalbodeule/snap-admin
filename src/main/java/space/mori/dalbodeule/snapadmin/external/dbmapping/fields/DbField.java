@@ -87,6 +87,8 @@ public class DbField {
 	 * annotation has been applied.
 	 */
 	private String format;
+
+	private boolean disableEditField = false;
 	
 	/**
 	 * The schema this field belongs to
@@ -94,13 +96,14 @@ public class DbField {
 	@JsonIgnore
 	private DbObjectSchema schema;
 	
-	public DbField(String javaName, String name, Field field, DbFieldType type, DbObjectSchema schema, String format) {
+	public DbField(String javaName, String name, Field field, DbFieldType type, DbObjectSchema schema, String format, boolean isDisable) {
 		this.javaName = javaName;
 		this.dbName = name;
 		this.schema = schema;
 		this.field = field;
 		this.type = type;
 		this.format = format;
+		this.disableEditField = isDisable;
 	}
 	
 	public String getJavaName() {
@@ -188,6 +191,14 @@ public class DbField {
 	
 	public boolean isText() {
 		return type instanceof TextFieldType;
+	}
+
+	public boolean isDisableEditField() {
+		return disableEditField;
+	}
+
+	public void setDisableEditField(boolean managed) {
+		this.disableEditField = managed;
 	}
 	
 	/**

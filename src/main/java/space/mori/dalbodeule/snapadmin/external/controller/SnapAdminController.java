@@ -32,6 +32,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.hibernate.id.IdentifierGenerationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,6 +87,7 @@ import space.mori.dalbodeule.snapadmin.internal.service.UserSettingsService;
  */
 @Controller
 @RequestMapping(value= {"/${snapadmin.baseUrl}", "/${snapadmin.baseUrl}/"})
+@Hidden
 public class SnapAdminController {
 	private static final Logger logger = LoggerFactory.getLogger(SnapAdminController.class);
 	
@@ -527,8 +529,13 @@ public class SnapAdminController {
 			} else {
 				throw new RuntimeException(e);
 			}
+		} catch (Exception e) {
+			// 추가: 일반적인 예외 처리
+			logger.error("Unexpected error during data submission: ", e);
+			attr.addFlashAttribute("errorTitle", "System Error");
+			attr.addFlashAttribute("error", e.getMessage());
+			attr.addFlashAttribute("params", params);
 		}
-
 
 		if (attr.getFlashAttributes().containsKey("error")) {
 			if (create)

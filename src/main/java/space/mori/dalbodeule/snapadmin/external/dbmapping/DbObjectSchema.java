@@ -43,7 +43,7 @@ import space.mori.dalbodeule.snapadmin.external.SnapAdmin;
 import space.mori.dalbodeule.snapadmin.external.annotations.ComputedColumn;
 import space.mori.dalbodeule.snapadmin.external.annotations.DisableCreate;
 import space.mori.dalbodeule.snapadmin.external.annotations.DisableDelete;
-import space.mori.dalbodeule.snapadmin.external.annotations.DisableEdit;
+import space.mori.dalbodeule.snapadmin.external.annotations.DisableEditField;
 import space.mori.dalbodeule.snapadmin.external.annotations.DisableExport;
 import space.mori.dalbodeule.snapadmin.external.annotations.HiddenColumn;
 import space.mori.dalbodeule.snapadmin.external.dbmapping.fields.DbField;
@@ -351,7 +351,7 @@ public class DbObjectSchema {
 	}
 	
 	public boolean isEditEnabled() {
-		return entityClass.getAnnotation(DisableEdit.class) == null;
+		return entityClass.getAnnotation(DisableEditField.class) == null;
 	}
 	
 	public boolean isCreateEnabled() {

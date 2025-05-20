@@ -51,6 +51,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import space.mori.dalbodeule.snapadmin.external.annotations.Disable;
+import space.mori.dalbodeule.snapadmin.external.annotations.DisableEditField;
 import space.mori.dalbodeule.snapadmin.external.annotations.DisplayFormat;
 import space.mori.dalbodeule.snapadmin.external.dbmapping.CustomJpaRepository;
 import space.mori.dalbodeule.snapadmin.external.dbmapping.DbObjectSchema;
@@ -219,6 +220,7 @@ public class SnapAdmin {
 			Field[] fields = klass.getDeclaredFields();
 			for (Field f : fields) {
 				try {
+					if(f.getName().contains("hibernate")) continue;
 					DbField field = mapField(f, schema);
 					field.setSchema(schema);
 					schema.addField(field);
@@ -352,8 +354,9 @@ public class SnapAdmin {
 		}
 		
 		DisplayFormat displayFormat = f.getAnnotation(DisplayFormat.class);
+		DisableEditField disableEdit = f.getAnnotation(DisableEditField.class);
 		
-		DbField field = new DbField(f.getName(), fieldName, f, fieldType, schema, displayFormat != null ? displayFormat.format() : null);
+		DbField field = new DbField(f.getName(), fieldName, f, fieldType, schema, displayFormat != null ? displayFormat.format() : null, disableEdit != null);
 		field.setConnectedType(connectedType);
 		
 		Id[] idAnnotations = f.getAnnotationsByType(Id.class);

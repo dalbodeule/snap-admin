@@ -20,6 +20,7 @@ package space.mori.dalbodeule.snapadmin.internal.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,11 +36,18 @@ public class ConsoleQueryService {
 	
 	@Autowired
 	private ConsoleQueryRepository repo;
-	
+
+	private final Logger logger = Logger.getLogger(ConsoleQueryService.class.getName());
+
 	public ConsoleQuery save(ConsoleQuery q) {
-		return internalTransactionTemplate.execute((status) -> {
-			return repo.save(q);
-		});
+		try {
+			return internalTransactionTemplate.execute((status) -> {
+				return repo.save(q);
+			});
+		} catch(Exception e) {
+			logger.severe("Error while saving console query: " + e.getMessage());
+			throw e;
+		}
 	}
 	
 	public void delete(String id) {

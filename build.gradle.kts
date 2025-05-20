@@ -49,6 +49,8 @@ dependencies {
     api(libs.org.springframework.boot.spring.boot.starter.validation)
     api(libs.org.springframework.boot.spring.boot.starter.web)
     api(libs.org.springframework.boot.spring.boot.configuration.processor)
+    api("io.swagger.core.v3:swagger-annotations:2.2.15")
+
     testImplementation(libs.org.springframework.boot.spring.boot.starter.test)
 }
 

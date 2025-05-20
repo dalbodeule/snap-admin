@@ -22,6 +22,7 @@ package space.mori.dalbodeule.snapadmin.external.controller.rest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ import space.mori.dalbodeule.snapadmin.external.dto.AutocompleteSearchResult;
  */
 @RestController
 @RequestMapping(value= {"/${snapadmin.baseUrl}/api/autocomplete", "/${snapadmin.baseUrl}/api/autocomplete/"})
+@Hidden
 public class AutocompleteController {
 	@Autowired
 	private SnapAdmin snapAdmin;

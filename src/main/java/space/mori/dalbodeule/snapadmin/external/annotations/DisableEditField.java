@@ -28,6 +28,6 @@ import java.lang.annotation.Target;
  * Disables edit actions on the Entity class.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface DisableEdit {
+@Target(ElementType.FIELD)
+public @interface DisableEditField {
 }
