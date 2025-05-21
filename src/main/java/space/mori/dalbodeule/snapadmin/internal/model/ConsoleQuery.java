@@ -22,19 +22,20 @@ package space.mori.dalbodeule.snapadmin.internal.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import space.mori.dalbodeule.snapadmin.external.annotations.Disable;
 
 @Entity
+@Disable
+@Table(name="snapadmin_console_query")
 public class ConsoleQuery {
 	@Id
 	@UuidGenerator
 	private String id;
 	
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String sql;
 	
 	private String title;

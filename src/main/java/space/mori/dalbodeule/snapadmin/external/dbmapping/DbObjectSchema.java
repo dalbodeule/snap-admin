@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -99,6 +100,10 @@ public class DbObjectSchema {
 	 * @param snapAdmin the SnapAdmin instance
 	 */
 	public DbObjectSchema(Class<?> klass, SnapAdmin snapAdmin) {
+		if (klass.getAnnotation(Entity.class) == null) {
+			throw new SnapAdminException("Class " + klass.getName() + " is not an @Entity");
+		}
+
 		this.snapAdmin = snapAdmin;
 		this.entityClass = klass;
 		

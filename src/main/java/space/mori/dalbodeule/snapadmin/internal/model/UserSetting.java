@@ -21,11 +21,15 @@ package space.mori.dalbodeule.snapadmin.internal.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import space.mori.dalbodeule.snapadmin.external.annotations.Disable;
 
 /**
  * A single variable in the user settings.
  */
 @Entity
+@Disable
+@Table(name="snapadmin_user_setting")
 public class UserSetting {
 	/**
 	 * The id of the variable (its name)

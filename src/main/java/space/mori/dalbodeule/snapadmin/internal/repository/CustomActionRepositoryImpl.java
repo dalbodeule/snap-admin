@@ -39,8 +39,6 @@ import space.mori.dalbodeule.snapadmin.internal.model.UserAction;
  */
 @Component
 public class CustomActionRepositoryImpl implements CustomActionRepository {
-
-    @PersistenceContext(unitName = "internal")
     private EntityManager entityManager;
     
     /**

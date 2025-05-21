@@ -5,3 +5,5 @@
  */
 
 rootProject.name = "snap-admin"
+
+include("debugBackend")
