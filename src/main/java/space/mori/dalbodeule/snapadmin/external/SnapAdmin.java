@@ -89,7 +89,7 @@ public class SnapAdmin {
 	
 	private boolean authenticated;
 	
-	private static final String VERSION = "0.4.1";
+	private static final String VERSION = "0.6.2";
     
     /**
 	 * Builds the SnapAdmin instance by scanning the `@Entity` beans and loading
@@ -396,25 +396,32 @@ public class SnapAdmin {
 	 * @return
 	 */
 	private DbFieldType mapForeignKeyType(Class<?> entityClass) {
-		try {
-			Object linkedEntity = entityClass.getConstructor().newInstance();
-			Class<?> linkType = null;
-			
-			for (Field ef : linkedEntity.getClass().getDeclaredFields()) {
-				if (ef.getAnnotationsByType(Id.class).length != 0) {
-					linkType = ef.getType();
-				}
-			}
-			
-			if (linkType == null)
-				throw new SnapAdminException("Unable to find @Id field in Entity class " + entityClass);
-			
-			return DbFieldType.fromClass(linkType).getConstructor().newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			throw new SnapAdminException(e);
-		}
-	}
+    try {
+        Object linkedEntity = entityClass.getConstructor().newInstance();
+        Class<?> clazz = linkedEntity.getClass();
+        Field idField = null;
+
+        // 상속 계층 전체를 스캔하여 @Id 필드 탐색
+        while (clazz != null && clazz != Object.class) {
+            for (Field ef : clazz.getDeclaredFields()) {
+                if (ef.getAnnotationsByType(jakarta.persistence.Id.class).length != 0) {
+                    idField = ef;
+                    break;
+                }
+            }
+            if (idField != null) break;
+            clazz = clazz.getSuperclass();
+        }
+
+        if (idField == null)
+            throw new SnapAdminException("Unable to find @Id field in Entity class hierarchy: " + entityClass);
+
+        return DbFieldType.fromClass(idField.getType()).getConstructor().newInstance();
+    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+            | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        throw new SnapAdminException(e);
+    }
+}
 
 	public boolean isAuthenticated() {
 		return authenticated;
